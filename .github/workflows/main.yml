@@ -42,13 +42,16 @@ jobs:
               implementation 'androidx.appcompat:appcompat:1.6.1'
           }
           EOF
-          cat << 'EOF' > app/src/main/AndroidManifest.xml
+                   cat << 'EOF' > app/src/main/AndroidManifest.xml
           <?xml version="1.0" encoding="utf-8"?>
           <manifest xmlns:android="http://android.com">
               <uses-permission android:name="android.permission.INTERNET" />
               <application android:label="My AI" android:theme="@style/Theme.AppCompat.NoActionBar" android:usesCleartextTraffic="true">
-                  <activity android:name=".MainActivity" android:exported="true" android:windowSoftInputMode="adjustResize">
-                      <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+                  <activity android:name="com.myai.chat.MainActivity" android:exported="true" android:windowSoftInputMode="adjustResize">
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN" />
+                          <category android:name="android.intent.category.LAUNCHER" />
+                      </intent-filter>
                   </activity>
               </application>
           </manifest>
@@ -147,10 +150,9 @@ jobs:
                   }.setNegativeButton("Отмена", null).show()
               }
           }
-          EOF
-          gradle wrapper --gradle-version 8.5
-          chmod +x gradlew
-          ./gradlew assembleDebug
+          EOF                            
+          gradle assembleDebug
+          
       - uses: actions/upload-artifact@v4
         with:
           name: My-DeepSeek-Style-APK
