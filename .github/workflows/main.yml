@@ -1,4 +1,4 @@
-cat <<'EOF' > .github/workflows/main.yml
+
 name: Build Race APK
 on: [push, workflow_dispatch]
 
@@ -44,5 +44,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Race-APK
-        path: app/build/outputs/apk/debug/app-debug.apk
-EOF
+        path: app/build/outputs/apk/debug/app-debug
