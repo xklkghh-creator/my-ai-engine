@@ -1,6 +1,4 @@
 name: Build DeepSeek Style AI APK
-name: Build DeepSeek Style AI APK
-
 on:
   workflow_dispatch:
 
