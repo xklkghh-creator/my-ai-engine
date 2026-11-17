@@ -19,21 +19,22 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Accept Android SDK Licenses
-        run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+      - name: Setup Android SDK and NDK
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0" "ndk;26.3.11579264" "cmake;3.22.1"
 
       - name: Find and Build Android APK
         run: |
           ANDROID_DIR=$(find llama.cpp -name "gradlew" -printf "%h\n" | head -n 1)
-          echo "Found Android project in: $ANDROID_DIR"
           cd "$ANDROID_DIR"
           echo "sdk.dir=$ANDROID_HOME" > local.properties
+          echo "ndk.dir=$ANDROID_HOME/ndk/26.3.11579264" >> local.properties
           chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: MyCustomAIEngine-APK
           path: "**/app/build/outputs/apk/debug/*.apk"
-          
