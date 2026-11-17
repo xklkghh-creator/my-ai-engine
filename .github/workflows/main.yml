@@ -7,23 +7,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Скачивание исходного кода движка llama.cpp
-        run: |
-          git clone --depth 1 https://github.com
+      - name: Clone llama.cpp
+        run: git clone --depth 1 https://github.com
 
-      - name: Настройка Java 17
+      - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Сборка чистого APK под Dimensity 9400 (arm64-v8a)
+      - name: Build Android APK
         working-directory: llama.cpp/examples/llama.android
         run: |
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Загрузка готового APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: MyCustomAIEngine-APK
