@@ -1,0 +1,16 @@
+                  l.addView(TextView(this).apply { text = "API Ключ:" }); l.addView(ki)
+                  l.addView(TextView(this).apply { text = "Модель:" }); l.addView(mi)
+                  l.addView(TextView(this).apply { text = "Endpoint URL:" }); l.addView(ui)
+                  l.addView(TextView(this).apply { text = "System Prompt:" }); l.addView(si)
+                  AlertDialog.Builder(this).setTitle("Настройки").setView(l).setPositiveButton("Сохранить") { _, _ ->
+                      p.edit().putString("k", ki.text.toString().trim()).putString("m", mi.text.toString().trim()).putString("u", ui.text.toString().trim()).putString("s", si.text.toString().trim()).apply()
+                      Toast.makeText(this, "Сохранено", Toast.LENGTH_SHORT).show()
+                  }.setNegativeButton("Отмена", null).show()
+              }
+          }
+          EOF
+          gradle assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: My-DeepSeek-Style-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
