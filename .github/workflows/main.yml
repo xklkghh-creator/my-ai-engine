@@ -1,4 +1,3 @@
-cat <<'EOF' > .github/workflows/main.yml
 name: Build Race APK
 on: [push, workflow_dispatch]
 
@@ -45,4 +44,3 @@ jobs:
       with:
         name: Race-APK
         path: app/build/outputs/apk/debug/app-debug.apk
-EOF
