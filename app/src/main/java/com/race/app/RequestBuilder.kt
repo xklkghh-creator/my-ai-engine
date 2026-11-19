@@ -6,18 +6,17 @@ object RequestBuilder {
         userMessage: String,
         temperature: Float
     ): String {
-        // Экранируем кавычки и переносы строк для безопасного JSON
         val safeSystem = systemPrompt.replace("\"", "\\\"").replace("\n", "\\n")
         val safeUser = userMessage.replace("\"", "\\\"").replace("\n", "\\n")
 
         return """
         {
-          "model": "meta-llama/Meta-Llama-3-70B-Instruct",
-          "messages": [
-            {"role": "system", "content": "$safeSystem"},
-            {"role": "user", "content": "$safeUser"}
-          ],
-          "temperature": $temperature
+            "model": "meta-llama/Meta-Llama-3-70B-Instruct",
+            "messages": [
+                {"role": "system", "content": "$safeSystem"},
+                {"role": "user", "content": "$safeUser"}
+            ],
+            "temperature": $temperature
         }
         """.trimIndent()
     }
