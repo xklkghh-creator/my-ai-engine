@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#101012"
+    android:background="#101010"
     android:padding="16dp">
 
-    <!-- Верхняя панель с кнопкой + -->
+    <!-- Верхняя панель -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <!-- Прокручиваемая область для ответов -->
+    <!-- Прокручиваемая область чата -->
     <ScrollView
         android:id="@+id/chatScroll"
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:textIsSelectable="true" />
     </ScrollView>
 
-    <!-- Капсула ввода -->
+    <!-- Панель ввода -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,7 +50,8 @@
             android:hint="Спроси Race..."
             android:textColorHint="#888888"
             android:textColor="#FFFFFF"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:maxLines="4" />
 
         <Button
             android:id="@+id/btnSend"
