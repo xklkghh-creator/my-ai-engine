@@ -17,7 +17,6 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         settings = SettingsStore(this)
-
         chatText = findViewById(R.id.chatText)
         scroll = findViewById(R.id.chatScroll)
         input = findViewById(R.id.inputText)
@@ -25,21 +24,21 @@ class MainActivity : Activity() {
 
         btn.setOnClickListener {
             val prompt = input.text.toString().trim()
-            if (prompt.isEmpty()) return@setOnClickListener
-            input.setText("")
-            chatText.text = "Генерация..."
-            
-            Thread {
-                val json = RequestBuilder.build(
-                    settings.systemPrompt, prompt, settings.temperature
-                )
-                // TODO: Токен пока захардкожен для теста, потом вынесем в настройки
-                val result = AiClient.sendRequest("ТВОЙ_ТОКЕН", "meta-llama/Meta-Llama-3-70B-Instruct", json)
-                runOnUiThread {
-                    chatText.text = result
-                    scroll.post { scroll.fullScroll(ScrollView.FOCUS_DOWN) }
-                }
-            }.start()
+            if (prompt.isNotEmpty()) {
+                input.setText("")
+                chatText.text = "Генерация..."
+                
+                Thread {
+                    val json = RequestBuilder.build(
+                        settings.systemPrompt, prompt, settings.temperature
+                    )
+                    val result = AiClient.sendRequest(settings.apiToken, "meta-llama/Meta-Llama-3-70B-Instruct", json)
+                    runOnUiThread {
+                        chatText.text = result
+                        scroll.post { scroll.fullScroll(ScrollView.FOCUS_DOWN) }
+                    }
+                }.start()
+            }
         }
     }
 }
