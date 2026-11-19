@@ -7,15 +7,47 @@
     android:padding="16dp">
 
     <!-- Верхняя панель -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Race"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
 
-    <!-- Прокручиваемая область чата -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Race"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Кнопка нового чата (вверху) -->
+        <TextView
+            android:id="@+id/btnNewChat"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="+"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:background="@drawable/circle_bg"
+            android:includeFontPadding="false"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- Область картинки -->
+    <ImageView
+        android:id="@+id/generatedImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        android:scaleType="centerCrop"
+        android:background="#222222"/>
+
+    <!-- Чат -->
     <ScrollView
         android:id="@+id/chatScroll"
         android:layout_width="match_parent"
@@ -37,9 +69,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:background="#1D1E22"
         android:padding="8dp"
         android:layout_marginTop="16dp">
+
+        <!-- Плюсик для добавления фото -->
+        <TextView
+            android:id="@+id/btnAttach"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="+"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:background="@drawable/circle_outline_bg"
+            android:includeFontPadding="false"
+            android:paddingBottom="2dp"
+            android:layout_marginEnd="8dp" />
 
         <EditText
             android:id="@+id/inputText"
@@ -47,12 +94,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
-            android:hint="Спроси Race..."
+            android:hint="Напишите сообщение..."
             android:textColorHint="#888888"
             android:textColor="#FFFFFF"
             android:inputType="textMultiLine"
             android:maxLines="4" />
 
+        <!-- Обычная кнопка Отправить -->
         <Button
             android:id="@+id/btnSend"
             android:layout_width="wrap_content"
