@@ -12,21 +12,23 @@ class LoginActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val etEmail = findViewById<EditText>(R.id.etEmail)
-        val etPassword = findViewById<EditText>(R.id.etPassword)
+        val etApiKey = findViewById<EditText>(R.id.etApiKey)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
+        val settings = SettingsStore(this)
+
+        // Если ключ уже сохранен, сразу идем в чат
+        if (settings.apiToken.isNotEmpty()) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+        }
 
         btnLogin.setOnClickListener {
-            val email = etEmail.text.toString().trim()
-            val pass = etPassword.text.toString().trim()
-
-            if (email.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show()
+            val key = etApiKey.text.toString().trim()
+            if (key.isEmpty()) {
+                Toast.makeText(this, "Введите API Key", Toast.LENGTH_SHORT).show()
             } else {
-                // Для теста: используем пароль как API-токен
-                val settings = SettingsStore(this)
-                settings.apiToken = pass
-                
+                settings.apiToken = key
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
