@@ -16,7 +16,6 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
         settings = SettingsStore(this)
         chatText = findViewById(R.id.chatText)
         scroll = findViewById(R.id.chatScroll)
@@ -28,21 +27,14 @@ class MainActivity : Activity() {
             if (prompt.isNotEmpty()) {
                 input.setText("")
                 chatText.text = "Генерация..."
-
                 Thread {
-                    try {
-                        val json = RequestBuilder.build(
-                            settings.systemPrompt, prompt, settings.temperature
-                        )
-                        val result = AiClient.sendRequest(settings.apiToken, "meta-llama/Meta-Llama-3-70B-Instruct", json)
-                        runOnUiThread {
-                            chatText.text = result
-                            scroll.post { scroll.fullScroll(ScrollView.FOCUS_DOWN) }
-                        }
-                    } catch (e: Exception) {
-                        runOnUiThread {
-                            chatText.text = "Ошибка: ${e.message}"
-                        }
+                    val json = RequestBuilder.build(
+                        settings.systemPrompt, prompt, settings.temperature
+                    )
+                    val result = AiClient.sendRequest(settings.apiToken, "meta-llama/Meta-Llama-3-70B-Instruct", json)
+                    runOnUiThread {
+                        chatText.text = result
+                        scroll.post { scroll.fullScroll(ScrollView.FOCUS_DOWN) }
                     }
                 }.start()
             }
