@@ -9,6 +9,10 @@ import android.widget.ScrollView
 import android.content.ClipboardManager
 import android.content.Context
 import android.widget.Toast
+import io.noties.markwon.Markwon
+import io.noties.markwon.syntax.Prism4jThemeDefault
+import io.noties.markwon.syntax.SyntaxHighlightPlugin
+import io.noties.markwon.syntax.Prism4jTheme
 
 class MainActivity : Activity() {
     private lateinit var settings: SettingsStore
@@ -16,10 +20,17 @@ class MainActivity : Activity() {
     private lateinit var scroll: ScrollView
     private lateinit var input: EditText
     private lateinit var btnCopy: Button
+    private lateinit var markwon: Markwon
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        
+        val theme = Prism4jThemeDefault.create()
+        markwon = Markwon.builder(this)
+            .usePlugin(SyntaxHighlightPlugin.create(Prism4jThemeDefault.create(), theme))
+            .build()
+
         settings = SettingsStore(this)
         chatText = findViewById(R.id.chatText)
         scroll = findViewById(R.id.chatScroll)
@@ -47,7 +58,7 @@ class MainActivity : Activity() {
                     )
                     val result = AiClient.sendRequest(settings.apiToken, "meta-llama/Meta-Llama-3-70B-Instruct", json)
                     runOnUiThread {
-                        chatText.text = result
+                        markwon.setMarkdown(chatText, result)
                         btnCopy.visibility = Button.VISIBLE
                         scroll.post { scroll.fullScroll(ScrollView.FOCUS_DOWN) }
                     }
