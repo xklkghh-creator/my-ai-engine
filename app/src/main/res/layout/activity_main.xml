@@ -32,7 +32,7 @@
             android:textSize="24sp"
             android:textColor="#FFFFFF"
             android:gravity="center"
-            android:background="@drawable/circle_bg"
+            android:background="#1D1E22"
             android:includeFontPadding="false"
             android:layout_marginStart="8dp" />
     </LinearLayout>
@@ -83,7 +83,7 @@
             android:textSize="24sp"
             android:textColor="#FFFFFF"
             android:gravity="center"
-            android:background="@drawable/circle_outline_bg"
+            android:background="#1D1E22"
             android:includeFontPadding="false"
             android:paddingBottom="2dp"
             android:layout_marginEnd="8dp" />
