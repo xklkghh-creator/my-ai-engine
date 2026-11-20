@@ -11,12 +11,12 @@ object RequestBuilder {
 
         return """
         {
-            "model": "meta-llama/Meta-Llama-3-70B-Instruct",
-            "messages": [
-                {"role": "system", "content": "$safeSystem"},
-                {"role": "user", "content": "$safeUser"}
-            ],
-            "temperature": $temperature
+          "model": "meta-llama/llama-3-8b-instruct",
+          "messages": [
+            {"role": "system", "content": "$safeSystem"},
+            {"role": "user", "content": "$safeUser"}
+          ],
+          "temperature": $temperature
         }
         """.trimIndent()
     }

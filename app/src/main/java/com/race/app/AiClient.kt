@@ -5,11 +5,11 @@ import java.net.URL
 
 object AiClient {
     private const val SCHEME = "https://"
-    private const val DOMAIN = "api-inference.huggingface.co"
-    private const val PATH = "/models/"
+    private const val DOMAIN = "openrouter.ai"
+    private const val PATH = "/api/v1/chat/completions"
 
     fun buildUrl(model: String): String {
-        return SCHEME + DOMAIN + PATH + model
+        return SCHEME + DOMAIN + PATH
     }
 
     fun sendRequest(token: String, model: String, jsonBody: String): String {
@@ -17,20 +17,20 @@ object AiClient {
         val conn = url.openConnection() as HttpURLConnection
         return try {
             conn.requestMethod = "POST"
-            conn.setRequestProperty("Authorization", "Bearer $token")
+            conn.setRequestProperty("Authorization", "Bearer " + token)
             conn.setRequestProperty("Content-Type", "application/json")
+            conn.setRequestProperty("HTTP-Referer", "https://race.app")
+            conn.setRequestProperty("X-Title", "Race")
             conn.doOutput = true
-            
             conn.outputStream.use { it.write(jsonBody.toByteArray()) }
             val code = conn.responseCode
-            
             if (code in 200..299) {
                 conn.inputStream.bufferedReader().readText()
             } else {
-                "Error: HTTP $code"
+                "Error: HTTP " + code + " - " + conn.errorStream.bufferedReader().readText()
             }
         } catch (e: Exception) {
-            "Error: ${e.message}"
+            "Error: " + e.message
         } finally {
             conn.disconnect()
         }
