@@ -11,7 +11,7 @@ object RequestBuilder {
 
         return """
         {
-          "model": "meta-llama/llama-3-8b-instruct",
+          "model": "llama-3.3-70b-versatile",
           "messages": [
             {"role": "system", "content": "$safeSystem"},
             {"role": "user", "content": "$safeUser"}

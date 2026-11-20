@@ -5,8 +5,8 @@ import java.net.URL
 
 object AiClient {
     private const val SCHEME = "https://"
-    private const val DOMAIN = "openrouter.ai"
-    private const val PATH = "/api/v1/chat/completions"
+    private const val DOMAIN = "api.groq.com"
+    private const val PATH = "/openai/v1/chat/completions"
 
     fun buildUrl(model: String): String {
         return SCHEME + DOMAIN + PATH
@@ -19,8 +19,6 @@ object AiClient {
             conn.requestMethod = "POST"
             conn.setRequestProperty("Authorization", "Bearer " + token)
             conn.setRequestProperty("Content-Type", "application/json")
-            conn.setRequestProperty("HTTP-Referer", "https://race.app")
-            conn.setRequestProperty("X-Title", "Race")
             conn.doOutput = true
             conn.outputStream.use { it.write(jsonBody.toByteArray()) }
             val code = conn.responseCode
