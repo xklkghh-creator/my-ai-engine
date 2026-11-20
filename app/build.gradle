@@ -6,6 +6,7 @@ plugins {
 android {
     namespace 'com.race.app'
     compileSdk 35
+
     defaultConfig {
         applicationId "com.race.app"
         minSdk 26
@@ -28,6 +29,4 @@ android {
 }
 
 dependencies {
-    implementation 'io.noties.markwon:core:4.6.2'
-    implementation 'io.noties.markwon:syntax-highlight:4.6.2'
 }
